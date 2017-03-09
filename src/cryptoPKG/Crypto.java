@@ -8,7 +8,31 @@ import java.io.IOException;
 
 public class Crypto {
 
+	/**
+	 * Метод шифрования/дешифрования файла
+	 * Используется шифрование операцией XOR
+	 * @param SourceFilePath - Файл подлежащий шифрованию
+	 */
+	static public void EncodeFile(String SourceFilePath) throws IOException
+	{			
+		// Получение имени исходного файла и его каталога
+		File SourceFile = new File(SourceFilePath);		
+		String SourceFileName = SourceFile.getName();
+		String SourceFileDir = SourceFile.getParent();
+		
+		// Получение содержимого исходного файла в виде массива байт
+		byte[] SourceFileContent = ReadFile(SourceFilePath);
+		
+		// Шифрование
+		byte[] EncodeFileContent = EncodeBytes(SourceFileContent);						
+				
+		// Запись зашифрованных байтов в новый файл c приставкой EncodeFilePrefix		
+		String EncodeFilePrefix = "Encode_";
+		String EncodeFileName = SourceFileDir + "/" + EncodeFilePrefix + SourceFileName;
+		WriteFile(EncodeFileName, EncodeFileContent);
 	
+		
+	}		
 	
 	/**
 	 * Метод чтения файла 
@@ -45,7 +69,22 @@ public class Crypto {
 		return filecontent;
 	}
 	
-
+	/**
+	 * Метод шифрования массива байт 
+	 * В основе шифрования лежит операция XOR
+	 * @param buff - Массив байт подлежащих шифрованию
+	 * @return Возвращает зашифрованный массив байт
+	 */
+	static private byte[] EncodeBytes(byte[] buff)
+	{
+		for (int i = 0; i < buff.length; i++)
+		{
+			buff[i] ^= 'a';
+		}
+		
+		return buff;
+	}
+	
 	/**
 	 * Запись в файл 
 	 * @param FilePath - Путь к файлу
