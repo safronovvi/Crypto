@@ -18,7 +18,7 @@ public class Programm {
 		String FilePath = sc.nextLine();
 		sc.close();
 				
-		// Шифрование
+		// Шифрование probel
 		Crypto.EncodeFile(FilePath);
 		
 	}
