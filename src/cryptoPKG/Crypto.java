@@ -77,9 +77,15 @@ public class Crypto {
 	 */
 	static private byte[] EncodeBytes(byte[] buff)
 	{
+		String key = "hello";
+		int lenKey = key.length();
+		int currentKeyPos = 0;
 		for (int i = 0; i < buff.length; i++)
 		{
-			buff[i] ^= 'a';
+			buff[i] ^= key.charAt(currentKeyPos);
+			currentKeyPos++;
+			if (currentKeyPos == lenKey) 
+				currentKeyPos = 0;				
 		}
 		
 		return buff;
